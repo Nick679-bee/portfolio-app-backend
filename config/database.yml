@@ -1,17 +1,7 @@
 development:
-  adapter: postgresql
-  encoding: unicode
-  database: portfolio_dev
-  pool: 2
-  username: <%= ENV["POSTGRES_USER"] %>
-  password: <%= ENV["POSTGRES_PASSWORD"] %>
-  host: db
+  adapter: sqlite3
+  database: db/portfolio_dev.sqlite3
 
 test:
-  adapter: postgresql
-  encoding: unicode
-  database: portfolio_test
-  pool: 2
-  username: <%= ENV["POSTGRES_USER"] %>
-  password: <%= ENV["POSTGRES_PASSWORD"] %>
-  host: db
+  adapter: sqlite3
+  database: db/portfolio_test.sqlite3
