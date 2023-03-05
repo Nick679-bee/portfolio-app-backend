@@ -1,7 +1,11 @@
-development:
+default: &default
   adapter: sqlite3
-  database: db/portfolio_dev.sqlite3
+  timeout: 5000
 
-test:
-  adapter: sqlite3
-  database: db/portfolio_test.sqlite3
+development:
+  <<: *default
+  database: db/portfolio-dev.sqlite3
+
+production:
+  <<: *default
+  database: db/portfolio-prod.sqlite3
