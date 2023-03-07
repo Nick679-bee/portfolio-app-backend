@@ -37,6 +37,7 @@ class UserController < AppController
     user = User.all
     json_response(data: user)
   end
+
   get '/user/last' do
     user = User.all.last
     json_response(data: user)
