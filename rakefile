@@ -1,9 +1,8 @@
-require 'sinatra'
-require_relative './config/environment'
 require 'sinatra/activerecord/rake'
-require 'rake'
-
+require 'require_all'
+require 'rake/dsl_definition'
+include Rake::DSL
 
 task :start do
-   exec "rerun -b 'rackup config.ru'"
+    exec "rerun -b 'rackup config.ru'"
 end

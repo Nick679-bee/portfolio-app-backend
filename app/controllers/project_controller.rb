@@ -1,4 +1,4 @@
-class SkillController < AppController
+class ProjectController < AppController
 
     set :views, './app/views'
 
@@ -8,51 +8,51 @@ class SkillController < AppController
     end
 
     # @method: Add a new PROJECTS to the DB
-    post '/skill/create' do
+    post '/project/create' do
         begin
-            project = Skill.create( self.data(create: true) )
+            project = Project.create( self.data(create: true) )
             json_response(code: 201, data: project)
         rescue => e
             json_response(code: 422, data: { error: e.message })
         end
     end
 
-    # @method: Display all skills from user with a limit of 10
-    get '/skill' do
-        skills = Skill.all
-        skills.limit(10).to_json
+    # @method: Display all proojects
+    get '/project' do
+        projects = Project.all
+        projects.to_json
     end
 
     # @view: Renders an erb file which shows all PROJECTS
     # erb has content_type because we want to override the default set above
     get '/' do
-        @skills = Skill.all.map { |student|
+        @projects = Project.all.map { |student|
           {
-            skll: skill,
+            project: project,
             badge: student_status_badge(student.status)
           }
         }
         @i = 1
-        erb_response :skills
+        erb_response :projects
     end
 
-    # @method: Update existing Skill according to :id
-    put '/skill/update/:id' do
+    # @method: Update existing PROJECT according to :id
+    put '/project/update/:id' do
         begin
-            skill = Skill.find(self.skill_id)
-            skill.update(self.data)
-            json_response(data: { message: "skill updated successfully" })
+            project = Project.find(self.project_id)
+            project.update(self.data)
+            json_response(data: { message: "project updated successfully" })
         rescue => e
             json_response(code: 422 ,data: { error: e.message })
         end
     end
 
-    # @method: Delete SKILL based on :id
-    delete '/skill/destroy/:id' do
+    # @method: Delete PROJECT based on :id
+    delete '/project/destroy/:id' do
         begin
-            skill = Skill.find(self.skill_id)
-            skill.destroy
-            json_response(data: { message: "skill deleted successfully" })
+            project = Project.find(self.project_id)
+            project.destroy
+            json_response(data: { message: "project deleted successfully" })
         rescue => e
           json_response(code: 422, data: { error: e.message })
         end
@@ -71,12 +71,12 @@ class SkillController < AppController
     end
 
     # @helper: retrieve to-do :id
-    def skill_id
+    def project_id
         params['id'].to_i
     end
 
     # @helper: format status style
-    def skill_status_badge(status)
+    def project_status_badge(status)
         case status
             when 'CREATED'
                 'bg-info'

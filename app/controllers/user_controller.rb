@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class UserController < AppController
 
-  # @helper: reading the JSON body
+  # @helper: read JSON body
   before do
     begin
       @user = user_data
@@ -9,7 +11,7 @@ class UserController < AppController
     end
   end
 
-  # @method: create a new user
+  #@method: create a new user
   post '/auth/register' do
     begin
       x = User.create(@user)
@@ -19,30 +21,28 @@ class UserController < AppController
     end
   end
 
-  # @method :log in user using email and password
+  get '/user' do
+    users = User.all
+    users.to_json
+   
+  end
+
+  #@method: log in user using email and password
   post '/auth/login' do
     begin
       user_data = User.find_by(email: @user['email'])
       if user_data.password == @user['password']
-        json_response(code: 200, data: {id: user_data.id, email: user_data.email})
+        json_response(code: 200, data: {
+          id: user_data.id,
+          email: user_data.email
+        })
       else
-        json_response(code: 422, data: {message: 'Your email/password combination is incorrect'})
+        json_response(code: 422, data: { message: "Your email/password combination is not correct" })
       end
     rescue => e
       error_response(422, e)
     end
   end
-
-  get '/user' do
-    user = User.all
-    json_response(data: user)
-  end
-
-  get '/user/last' do
-    user = User.all.last
-    json_response(data: user)
-  end
-
 
   private
 

@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class User < ActiveRecord::Base
-  # our active record many to one associations
   has_many :projects
   has_many :skills
-  # table consists of passwprd hashes as a column to store password as hashes in the db
+  # table consists of password_hash as a column to store password hashes in DB
   include BCrypt
 
   # retrieve password from hash
@@ -15,4 +16,5 @@ class User < ActiveRecord::Base
     @password = Password.create(new_pass)
     self.password_hash = @password
   end
+
 end

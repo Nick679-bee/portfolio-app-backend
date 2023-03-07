@@ -9,3 +9,7 @@ development:
 production:
   <<: *default
   database: db/portfolio-prod.sqlite3
+
+# test:
+#   <<: *default
+#   database: db/todos-test.sqlite3
